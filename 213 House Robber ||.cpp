@@ -66,7 +66,7 @@ public:
     }
 };
 
-// Approach--3 Tanulation + Space Otpmization
+// Approach--3 Tanulation + Space Otpmization Method-1
 class Solution {
 public:
 
@@ -99,3 +99,5 @@ public:
         return max(firstPart, secondPart);
     }
 };
+
+// Approach--3 Tanulation + Space Otpmization Method-2
