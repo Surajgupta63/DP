@@ -101,3 +101,31 @@ public:
 };
 
 // Approach--3 Tanulation + Space Otpmization Method-2
+
+class Solution {
+public:
+    int solve(int s, int e, vector<int>& nums){
+        int prev = 0;
+        int prevkaPrev = 0;
+
+        for(int i=s; i<=e; i++){
+            int pick    = nums[i] + prevkaPrev;
+            int notPick = prev;
+
+            int temp = max(pick, notPick);
+            prevkaPrev = prev;
+            prev = temp;
+        }
+        return prev;
+    }
+    int rob(vector<int>& nums) {
+        int n = nums.size();
+        if(n==1) return nums[0];
+        if(n==2) return max(nums[0], nums[1]);
+
+        int firstPart  = solve(0, n-2, nums);
+        int secondPart = solve(1, n-1, nums);
+        
+        return max(firstPart, secondPart);
+    }
+};
