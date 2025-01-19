@@ -65,3 +65,37 @@ public:
         return max(firstPart, secondPart);
     }
 };
+
+// Approach--3 Tanulation + Space Otpmization
+class Solution {
+public:
+
+    int rob(vector<int>& nums) {
+        int n = nums.size();
+        if(n==1) return nums[0];
+        
+        int prev = 0;
+        int curr = nums[0];
+        for(int i=2; i<=n-1; i++){
+            int pick = nums[i-1] + prev;
+            int notPick = curr;
+            int temp = max(pick, notPick); 
+            prev = curr;
+            curr = temp;
+        }
+        int firstPart = curr;
+
+        prev = 0;
+        curr = nums[1];
+        for(int i=3; i<=n; i++){
+            int pick = nums[i-1] + prev;
+            int notPick = curr;
+            int temp = max(pick, notPick);
+            prev = curr;
+            curr = temp; 
+        }
+        int secondPart = curr;
+
+        return max(firstPart, secondPart);
+    }
+};
