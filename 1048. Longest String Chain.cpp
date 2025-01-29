@@ -50,3 +50,46 @@ public:
         
     }
 };
+
+// Using Tabulation
+// T.C : O(N^2) * 16
+// S.C : O(N)
+class Solution {
+public:
+    bool isPredecessor(string &str1, string &str2){
+        int x = str1.length();
+        int y = str2.length();
+
+        if(x >= y || y-x != 1) return false;
+
+        int i=0, j=0;
+        while(i < x && j < y){
+            if(str1[i] == str2[j]){
+                i++;
+            }
+            j++;
+        }
+        return i == x;
+    }
+    
+    static bool comp(string &word1, string &word2){
+        return word1.length() < word2.length();
+    }
+
+    int longestStrChain(vector<string>& words) {
+        int n = words.size();
+        sort(words.begin(), words.end(), comp);
+        vector<int> dp(n, 1);
+
+        int maxStrChain = 1;
+        for(int i=0; i<n; i++){
+            for(int j=0; j<i; j++){
+                if(isPredecessor(words[j], words[i])){
+                    dp[i] = max(dp[i], dp[j] + 1);
+                    maxStrChain = max(maxStrChain, dp[i]);
+                }
+            }
+        }
+        return maxStrChain;
+    }
+};
