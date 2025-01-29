@@ -5,7 +5,7 @@ class Solution {
 public:
     int N, M, K;
     int MOD = 1e9 + 7;
-    int dp[101][101][101];
+    int dp[51][51][101];
     int solve(int idx, int cost, int maxi){
         if(idx == N){
             if(cost == K) return 1;
