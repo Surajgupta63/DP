@@ -1,4 +1,4 @@
-//// Approach-1 Using Recursion + Tabualtion
+// Approach-1 Using Recursion + Memoization
 // T.C : O(M*N)
 // S.C : O(M*N)
 class Solution {
@@ -21,3 +21,34 @@ public:
         return solve(text1, text2, 0, 0);
     }
 }; 
+
+// Approach-2 Using Tabualtion
+// T.C : O(M*N)
+// S.C : O(M*N)
+class Solution {
+public:
+    int longestCommonSubsequence(string text1, string text2) {
+        int m = text1.size();
+        int n = text2.size();
+        
+        vector<vector<int>> dp(m+1, vector<int>(n+1));
+
+        for(int row=0; row<m; row++){
+            dp[row][0] = 0;
+        }
+        for(int col=0; col<n; col++){
+            dp[0][col] = 0;
+        }
+
+        for(int row=1; row<=m; row++){
+            for(int col=1; col<=n; col++){
+                if(text1[row-1] == text2[col-1]){
+                    dp[row][col] = 1 + dp[row-1][col-1];
+                }else{
+                    dp[row][col] = max(dp[row-1][col], dp[row][col-1]);
+                }
+            }
+        }
+        return dp[m][n];
+    }
+};
