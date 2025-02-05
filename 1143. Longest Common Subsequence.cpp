@@ -52,3 +52,54 @@ public:
         return dp[m][n];
     }
 };
+
+
+// Printing Longest Common Subsequence
+class Solution {
+public:
+    int longestCommonSubsequence(string text1, string text2) {
+        int m = text1.size();
+        int n = text2.size();
+        
+        vector<vector<int>> dp(m+1, vector<int>(n+1));
+
+        for(int row=0; row<=m; row++){
+            dp[row][0] = 0;
+        }
+        for(int col=0; col<=n; col++){
+            dp[0][col] = 0;
+        }
+
+        for(int row=1; row<=m; row++){
+            for(int col=1; col<=n; col++){
+                if(text1[row-1] == text2[col-1]){
+                    dp[row][col] = 1 + dp[row-1][col-1];
+                }else{
+                    dp[row][col] = max(dp[row-1][col], dp[row][col-1]);
+                }
+            }
+        }
+
+        // printing longest common subsequence
+        string lcs = "";
+        int i = m, j = n;
+
+        while(i > 0 && j > 0){
+            if(text1[i-1] == text2[j-1]){
+                lcs += text1[i-1];
+                i--; j--;
+            }else{
+                if(dp[i-1][j] > dp[i][j-1]){
+                    i--;
+                }else{
+                    j--;
+                }
+            }
+        }
+
+        reverse(begin(lcs), end(lcs));
+        cout<<lcs;
+
+        return dp[m][n];
+    }
+};
